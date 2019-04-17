@@ -24,7 +24,7 @@
     <header class="site-header">
         <nav class="navbar navbar-expand-md navbar-dark bg-steel fixed-top">
             <div class="container">
-                <a class="navbar-bran mr-4" href="/">
+                <a class="navbar-brand mr-4" href="/">
                     Flask Blog
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse">
@@ -40,6 +40,7 @@
                         {% if current_user.is_authenticated %}
                         <a class="nav-item nav-link">Hello, {{ current_user.username }}</a>
                         <a class="nav-item nav-link" href="{{ url_for('account') }}">Account</a>
+                        <a class="nav-item nav-link" href="{{ url_for('new_post') }}">New Post</a>
                         <a class="nav-item nav-link" href="{{ url_for('logout') }}">Logout</a>
                         {% else %}
                         <a class="nav-item nav-link" href="{{ url_for('login') }}">Login</a>

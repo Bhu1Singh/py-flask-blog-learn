@@ -35,7 +35,7 @@
                 {% endif %}
             </div>
             <div class="form-check">
-                {{ form.remember(class="form-check-input") }}          
+                {{ form.remember(class="form-check-input") }}
                 {{ form.remember.label(class="form-check-label") }}
             </div>
         </fieldset>
@@ -45,6 +45,6 @@
     </form>
     <div class="border-top pt-3">
         <small class="text-muted">
-            Forgot Password? <a class="ml-2" href="{{ url_for('login') }}">Click here</a> </small> </div>
+            Forgot Password? <a class="ml-2" href="{{ url_for('request_password') }}">Click here</a> </small> </div>
 </div>
 {% endblock content %}

@@ -1,7 +1,7 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileAllowed
 from flask_login import current_user
-from wtforms import StringField, PasswordField, SubmitField, BooleanField
+from wtforms import StringField, PasswordField, SubmitField, BooleanField, TextAreaField
 from wtforms.validators import DataRequired, Length, Email, EqualTo, ValidationError
 from flask_blog.models import User
 
@@ -46,7 +46,7 @@ class UpdateForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
 
     image = FileField('Update profile picture', validators=[
-                      FileAllowed(['jpg', 'png'])])
+                      FileAllowed(['jpg', 'png', 'jpeg'])])
 
     submit = SubmitField('Update')
 
@@ -63,3 +63,31 @@ class UpdateForm(FlaskForm):
             if user:
                 raise ValidationError(
                     'Email is already taken. Please choose another one.')
+
+
+class AddNewPost(FlaskForm):
+    title = StringField('Title', validators=[
+                        DataRequired(), Length(min=2, max=50)])
+    content = TextAreaField('Content', validators=[
+                            DataRequired(), Length(min=2, max=1000)])
+
+    submit = SubmitField('Save')
+
+
+class RequestResetForm(FlaskForm):
+    email = StringField('Email', validators=[DataRequired(), Email()])
+    submit = SubmitField('Submit')
+
+    def validate_email(self, email):
+        user = User.query.filter_by(email=email.data).first()
+
+        if user is None:
+            raise ValidationError(
+                'Email does not exist. Please enter a valid email.')
+
+
+class ResetPasswordForm(FlaskForm):
+    password = PasswordField('Password', validators=[DataRequired()])
+    password_confirm = PasswordField('Confirm Password',
+                                     validators=[DataRequired(), EqualTo('password')])
+    submit = SubmitField('Reset Password')
